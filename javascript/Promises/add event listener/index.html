@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Async Await with UI</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    #log { margin-top: 20px; }
+    .task { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Async Tasks Runner</h2>
+  <button id="startBtn">Start Tasks</button>
+
+  <div id="log"></div>
+
+  <script>
+    // Show message on screen
+    function logMessage(msg) {
+      const logDiv = document.getElementById("log");
+      const p = document.createElement("p");
+      p.className = "task";
+      p.textContent = msg;
+      logDiv.appendChild(p);
+    }
+
+    // Simulate async task
+    function simulateTask(taskName, delay) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const result = `${taskName} done after ${delay / 1000} sec`;
+          console.log(result);
+          logMessage(result);
+          resolve(result);
+        }, delay);
+      });
+    }
+
+    // Run async tasks
+    async function runTasks() {
+      document.getElementById("log").innerHTML = ""; // Clear previous logs
+      logMessage("🚀 Tasks started...");
+
+      const r1 = await simulateTask("🧩 Task 1", 1000);
+      const r2 = await simulateTask("⚙️ Task 2", 2000);
+      const r3 = await simulateTask("📦 Task 3", 1500);
+      const r4 = await simulateTask("✅ Task 4", 1000);
+
+      logMessage("🎉 All tasks completed!");
+    }
+
+    // Add event listener to button
+    document.getElementById("startBtn").addEventListener("click", runTasks);
+  </script>
+</body>
+</html>

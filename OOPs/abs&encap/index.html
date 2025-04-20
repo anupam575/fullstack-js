@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Account App</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    input, select, button {
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+    }
+    .output {
+      margin-top: 20px;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Bank Account Form</h2>
+
+  <select id="accountType">
+    <option value="savings">Savings Account</option>
+    <option value="current">Current Account</option>
+  </select>
+
+  <input type="text" id="name" placeholder="Owner Name" />
+  <input type="number" id="initial" placeholder="Initial Balance" />
+  <button onclick="createAccount()">Create Account</button>
+
+  <hr>
+
+  <input type="number" id="amount" placeholder="Enter Amount" />
+  <button onclick="deposit()">Deposit</button>
+  <button onclick="withdraw()">Withdraw</button>
+  <button onclick="applyInterest()">Apply Interest (Savings only)</button>
+
+  <div class="output" id="output">No account yet.</div>
+
+  <script>
+    // Core Classes (Encapsulation + Abstraction)
+    class BankAccount {
+      #accountNumber;
+      #owner;
+      #balance;
+
+      constructor(accountNumber, owner, initialBalance = 0) {
+        if (new.target === BankAccount) throw new Error("Abstract class!");
+        this.#accountNumber = accountNumber;
+        this.#owner = owner;
+        this.#balance = initialBalance;
+      }
+
+      getBalance() {
+        return this.#balance;
+      }
+
+      getInfo() {
+        return `Owner: ${this.#owner} | Balance: ₹${this.#balance}`;
+      }
+
+      _changeBalance(amount) {
+        this.#balance += amount;
+      }
+    }
+
+    class SavingsAccount extends BankAccount {
+      constructor(accountNumber, owner, balance = 0) {
+        super(accountNumber, owner, balance);
+        this.interestRate = 0.03;
+      }
+
+      deposit(amount) {
+        this._changeBalance(amount);
+        return `Deposited ₹${amount}`;
+      }
+
+      withdraw(amount) {
+        if (amount <= this.getBalance()) {
+          this._changeBalance(-amount);
+          return `Withdrew ₹${amount}`;
+        } else {
+          return "Insufficient funds.";
+        }
+      }
+
+      applyInterest() {
+        const interest = this.getBalance() * this.interestRate;
+        this._changeBalance(interest);
+        return `Interest ₹${interest.toFixed(2)} applied.`;
+      }
+    }
+
+    class CurrentAccount extends BankAccount {
+      constructor(accountNumber, owner, balance = 0) {
+        super(accountNumber, owner, balance);
+        this.overdraftLimit = 10000;
+      }
+
+      deposit(amount) {
+        this._changeBalance(amount);
+        return `Deposited ₹${amount}`;
+      }
+
+      withdraw(amount) {
+        if (amount <= this.getBalance() + this.overdraftLimit) {
+          this._changeBalance(-amount);
+          return `Withdrew ₹${amount}`;
+        } else {
+          return "Overdraft limit exceeded.";
+        }
+      }
+    }
+
+    // 🧠 App Logic
+    let account = null;
+    let accId = 100;
+
+    function createAccount() {
+      const type = document.getElementById('accountType').value;
+      const name = document.getElementById('name').value;
+      const initial = parseFloat(document.getElementById('initial').value) || 0;
+
+      if (type === 'savings') {
+        account = new SavingsAccount("S" + (++accId), name, initial);
+      } else {
+        account = new CurrentAccount("C" + (++accId), name, initial);
+      }
+
+      show(`Account created for ${name} with ₹${initial}`);
+    }
+
+    function deposit() {
+      const amt = parseFloat(document.getElementById('amount').value);
+      if (account && amt > 0) {
+        show(account.deposit(amt));
+      } else {
+        show("Invalid deposit.");
+      }
+    }
+
+    function withdraw() {
+      const amt = parseFloat(document.getElementById('amount').value);
+      if (account && amt > 0) {
+        show(account.withdraw(amt));
+      } else {
+        show("Invalid withdrawal.");
+      }
+    }
+
+    function applyInterest() {
+      if (account instanceof SavingsAccount) {
+        show(account.applyInterest());
+      } else {
+        show("Interest can only be applied to Savings Account.");
+      }
+    }
+
+    function show(message) {
+      const output = document.getElementById('output');
+      output.innerHTML = `${message}<br>${account ? account.getInfo() : ''}`;
+    }
+  </script>
+
+</body>
+</html>

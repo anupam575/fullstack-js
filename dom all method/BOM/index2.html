@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Browser Detective PRO</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #0f0;
+      padding: 20px;
+    }
+    .box {
+      border: 1px solid #0f0;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    button {
+      background-color: #0f0;
+      color: #111;
+      padding: 8px 12px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🕵️‍♂️ Browser Detective PRO</h1>
+
+  <div class="box" id="greeting"></div>
+
+  <div class="box">
+    <h3>🕒 Time & Timezone</h3>
+    <p>Local Time: <span id="time"></span></p>
+    <p>Timezone: <span id="timezone"></span></p>
+  </div>
+
+  <div class="box">
+    <h3>🔎 Window & Screen</h3>
+    <p>Window Size: <span id="window-size"></span></p>
+    <p>Screen Size: <span id="screen-size"></span></p>
+  </div>
+
+  <div class="box">
+    <h3>🌍 Location Info</h3>
+    <p>URL: <span id="url"></span></p>
+    <p>Hostname: <span id="hostname"></span></p>
+    <button onclick="location.reload()">Reload</button>
+    <button onclick="location.assign('https://www.google.com')">Go to Google</button>
+  </div>
+
+  <div class="box">
+    <h3>🧭 Navigator Info</h3>
+    <p>User Agent: <span id="agent"></span></p>
+    <p>Platform: <span id="platform"></span></p>
+    <p>Status: <span id="status"></span></p>
+    <p>Cookies Enabled: <span id="cookie"></span></p>
+  </div>
+
+  <div class="box">
+    <h3>📍 Geolocation</h3>
+    <p id="geo">Detecting location...</p>
+    <button onclick="getLocation()">Refresh Location</button>
+  </div>
+
+  <div class="box">
+    <h3>📜 History</h3>
+    <p>Visited Pages: <span id="history"></span></p>
+    <button onclick="history.back()">⬅️ Back</button>
+    <button onclick="history.forward()">➡️ Forward</button>
+  </div>
+
+  <script>
+    // Greeting
+    const name = prompt("Detective, what's your name?");
+    document.getElementById('greeting').textContent = `Welcome, Agent ${name}! Scanning the browser world...`;
+
+    // Time & Timezone
+    const now = new Date();
+    document.getElementById('time').textContent = now.toLocaleTimeString();
+    document.getElementById('timezone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // Window & Screen
+    document.getElementById('window-size').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+    document.getElementById('screen-size').textContent = `${screen.width} x ${screen.height}`;
+
+    // Location
+    document.getElementById('url').textContent = location.href;
+    document.getElementById('hostname').textContent = location.hostname;
+
+    // Navigator
+    document.getElementById('agent').textContent = navigator.userAgent;
+    document.getElementById('platform').textContent = navigator.platform;
+    document.getElementById('status').textContent = navigator.onLine ? "🟢 Online" : "🔴 Offline";
+    document.getElementById('cookie').textContent = navigator.cookieEnabled ? "✅ Enabled" : "❌ Disabled";
+
+    // History
+    document.getElementById('history').textContent = history.length;
+
+    // Geolocation
+    function getLocation() {
+      const geoEl = document.getElementById('geo');
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            geoEl.textContent = `Latitude: ${position.coords.latitude.toFixed(4)}, Longitude: ${position.coords.longitude.toFixed(4)}`;
+          },
+          (error) => {
+            geoEl.textContent = `Location access denied or unavailable.`;
+          }
+        );
+      } else {
+        geoEl.textContent = `Geolocation not supported by this browser.`;
+      }
+    }
+    getLocation();
+  </script>
+</body>
+</html>

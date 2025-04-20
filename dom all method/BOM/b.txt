@@ -1,0 +1,173 @@
+ window Object ke Methods
+1. alert("msg")
+🟢 Ek simple popup dikhata hai jo sirf OK button deta hai.
+📌 Use: User ko message batane ke liye.
+🧪 Example:
+
+js
+Copy
+Edit
+alert("Exam kal hai bhai!"); 
+2. confirm("msg")
+🟡 Popup jisme OK aur Cancel dono aata hai.
+📌 Use: User se haan/na ka decision lena.
+🧪 Example:
+
+js
+Copy
+Edit
+let sure = confirm("Delete karein file?");
+if(sure) {
+  console.log("File deleted");
+}
+3. prompt("msg", "default")
+🟣 User se text input lene ke liye popup.
+🧪 Example:
+
+js
+Copy
+Edit
+let name = prompt("Apna naam batao:");
+alert("Welcome " + name);
+4. open("url")
+🔵 New tab ya window open karta hai.
+🧪 Example:
+
+js
+Copy
+Edit
+let win = window.open("https://google.com");
+5. close()
+🔴 Current ya opened window/tab ko close karta hai.
+🧪 Example:
+
+js
+Copy
+Edit
+win.close();
+6. setTimeout(function, ms)
+⏳ Ek baar function run karta hai after time.
+🧪 Example:
+
+js
+Copy
+Edit
+setTimeout(() => {
+  alert("5 sec ho gaye bhai!");
+}, 5000);
+7. setInterval(function, ms)
+🔁 Har interval par bar bar function run karta hai.
+🧪 Example:
+
+js
+Copy
+Edit
+setInterval(() => {
+  console.log("Har 3 sec mein chal raha hoon!");
+}, 3000);
+8. clearTimeout(id)
+❌ Timeout cancel karta hai.
+🧪 Example:
+
+js
+Copy
+Edit
+let id = setTimeout(() => {}, 3000);
+clearTimeout(id);
+9. clearInterval(id)
+❌ Interval ko band karta hai.
+🧪 Example:
+
+js
+Copy
+Edit
+let id = setInterval(() => {}, 1000);
+clearInterval(id);
+10. print()
+🖨️ Print dialog open karta hai.
+🧪 Example:
+
+js
+Copy
+Edit
+print();
+🌍 location Object ke Methods
+1. assign("url")
+📥 New URL pe le jata hai (history add karta hai).
+🧪 Example:
+
+js
+Copy
+Edit
+location.assign("https://example.com");
+2. replace("url")
+🔄 New URL pe le jata hai bina history mein save kiye.
+🧪 Example:
+
+js
+Copy
+Edit
+location.replace("https://example.com");
+3. reload(true)
+♻️ Page ko refresh karta hai.
+🧪 Example:
+
+js
+Copy
+Edit
+location.reload(); // ya location.reload(true);
+📚 history Object ke Methods
+1. back()
+⬅️ Ek page peeche le jata hai.
+🧪 Example:
+
+js
+Copy
+Edit
+history.back();
+2. forward()
+➡️ Ek page aage le jata hai.
+🧪 Example:
+
+js
+Copy
+Edit
+history.forward();
+3. go(n)
+🔄 n pages aage/peeche jaata hai (positive = forward, negative = back)
+🧪 Example:
+
+js
+Copy
+Edit
+history.go(-2); // 2 page peeche
+🧭 navigator ke Methods
+1. navigator.javaEnabled()
+📡 Browser mein Java enabled hai ya nahi?
+🧪 Example:
+
+js
+Copy
+Edit
+console.log(navigator.javaEnabled()); // true/false
+2. sendBeacon(url, data)
+📨 Background mein data bhejne ke liye, bina page slow kiye.
+🧪 Example:
+
+js
+Copy
+Edit
+navigator.sendBeacon('/track', JSON.stringify({ event: 'click' }));
+📺 screen object
+Sirf properties deta hai (methods nahi)
+
+✅ To bhai, in sab methods ne kya kiya?
+User se interact karne ke liye (alert, confirm, prompt)
+
+New window/tab handle karne ke liye (open, close)
+
+Timing control karne ke liye (setTimeout, setInterval)
+
+Page navigation aur URL control ke liye (location.assign, location.replace, history.back)
+
+Browser info lene ke liye (navigator, screen)

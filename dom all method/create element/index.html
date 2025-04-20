@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🛠 createElement + createTextNode Example</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 6px 0;
+      padding: 8px;
+      background: #f2f2f2;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="title">📋 My Task List</h2>
+
+  <!-- Input Field -->
+  <input type="text" id="taskInput" placeholder="Enter task">
+  <!-- Button to Add Task -->
+  <button onclick="addTask()">Add Task</button>
+
+  <!-- Task List -->
+  <ul id="taskList"></ul>
+
+  <script>
+    // 📌 Function to add task
+    function addTask() {
+      // Step 1: Get value from input
+      const input = document.getElementById("taskInput");
+      const taskText = input.value.trim();
+
+      if (taskText === "") return; // don't add empty
+
+      // Step 2: Create new <li> element
+      const li = document.createElement("li");
+
+      // Step 3: Create text node with input value
+      const textNode = document.createTextNode(taskText);
+
+      // Step 4: Append text to <li>
+      li.appendChild(textNode);
+
+      // Step 5: Append <li> to the <ul>
+      document.getElementById("taskList").appendChild(li);
+
+      // Step 6: Optional - remove task on click
+      li.addEventListener("click", () => {
+        li.remove(); // delete task when clicked
+      });
+
+      // Step 7: Clear input field
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>

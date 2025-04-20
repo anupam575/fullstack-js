@@ -1,0 +1,42 @@
+.
+// Step 1: Ek div banate hain aur usme id set karte hain
+let div = document.createElement("div");
+div.setAttribute("id", "box1");  // <div id="box1"></div>
+
+// Step 2: Div ko document mein add karte hain
+document.body.appendChild(div);
+
+// Step 3: ab hum "id" attribute ko remove karenge
+div.removeAttribute("id");  // <div></div> now no 'id' attribute
+
+// Step 4: Check karte hain ki id attribute remove ho gaya ya nahi
+console.log(div.getAttribute("id"));  // null (id ab nahi hai)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>removeAttribute Example</title>
+  <style>
+    .highlight {
+      background-color: yellow;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="myBox" class="highlight">This is a highlighted box!</div>
+  <button onclick="removeMyBoxId()">Remove ID</button>
+
+  <script>
+    // Function to remove 'id' attribute from the div
+    function removeMyBoxId() {
+      let box = document.getElementById("myBox");
+      box.removeAttribute("id");  // ID remove kar raha hai
+      console.log(box.getAttribute("id"));  // null return hoga
+    }
+  </script>
+
+</body>
+</html>

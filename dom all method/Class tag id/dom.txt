@@ -1,0 +1,134 @@
+ 1. getElementsByClassName("task")
+javascript
+Copy
+Edit
+const taskItems = document.getElementsByClassName("task");
+alert(`Tasks with class 'task': ${taskItems.length}`);
+🧠 Kya Karta Hai:
+Ye method sari elements ko dhoondhta hai jinme class "task" lagi ho.
+
+Yahan, hum sabhi tasks ko count karne ke liye use kar rahe hain jinke andar class "task" lagi hai (ye wali line: li.classList.add("task") jab task add karte ho tab lagti hai).
+
+✅ Use:
+✅ Jab tumhare paas ek hi class wale multiple elements hote hain (like multiple <li class="task">), tab isse collection milta hai un sab ka.
+
+🔹 2. getElementsByTagName("li")
+javascript
+Copy
+Edit
+const allLi = document.getElementsByTagName("li");
+alert(`Total <li> tags: ${allLi.length}`);
+🧠 Kya Karta Hai:
+Ye sabhi <li> elements ko nikaalta hai poore page se (ya kisi specific container se agar specify karo).
+
+Chahe un <li> elements mein class ho ya na ho, sab count hote hain.
+
+✅ Use:
+✅ Jab tumhe kisi specific HTML tag ke sabhi elements chahiye hote hain, yeh kaam aata hai — jaise list ke items (<li>), paragraphs (<p>), images (<img>), etc.
+
+🔹 3. querySelectorAll(".task-list li")
+javascript
+Copy
+Edit
+const tasks = document.querySelectorAll(".task-list li");
+🧠 Kya Karta Hai:
+Ye CSS jaisa selector hai. Is case mein:
+
+.task-list → class task-list wale element ke andar
+
+li → saare <li> items nikalta hai
+
+Ye NodeList return karta hai jisme forEach() use kar sakte ho.
+
+✅ Use:
+✅ Jab tum CSS-style selector ke saath targeted aur flexible search karna chahte ho. Jaise:
+
+.className
+
+#idName
+
+div > p
+
+[type="text"] ... etc.
+
+📊 Summary Table:
+
+Method	Kya Select Karta Hai	Return Type	Kab Use Karein
+getElementsByClassName	Saare elements jinke paas specific class ho	HTMLCollection	Jab class se multiple elements chahiye
+getElementsByTagName	Saare specific tag jaise li, p, div	HTMLCollection	Jab tag-based selection chahiye
+querySelectorAll	CSS-style selector se elements	NodeList (forEach support)	Jab complex ya flexible selection chahiye
+🧠 Simple Example (Visualize Karo):
+html
+Copy
+Edit
+<ul class="task-list">
+  <li class="task">Apple</li>        <!-- Counted by all 3 -->
+  <li class="task">Banana</li>       <!-- Counted by all 3 -->
+  <li>Unstyled Task</li>             <!-- Counted by tag, querySelectorAll, NOT by class -->
+</ul>
+Agar tu chahe to in teenon ka difference ek demo table ke sath bana ke bhi dikha sakta hoon browser me run karne wala.
+
+Batayein bhai? Aur koi confusion ho to bata de!
+
+
+
+
+
+
+
+id Kya Hota Hai?
+id HTML element ka ek unique name hota hai.
+
+Har page me ek id sirf ek hi element ke paas honi chahiye.
+
+Tum kisi bhi id wale element ko JavaScript me directly pakad sakte ho using:
+
+js
+Copy
+Edit
+document.getElementById("idName");
+🔧 Is Project Me id Ka Kya Role Hai?
+html
+Copy
+Edit
+<input type="text" id="taskInput">
+<button id="addTaskBtn">Add Task</button>
+<ul id="taskList"></ul>
+1. id="taskInput"
+Kaam: Is input box me user task type karta hai
+JavaScript:
+
+js
+Copy
+Edit
+const input = document.getElementById("taskInput");
+Ye line input field ko pakad rahi hai, jahan se value nikalte hain.
+
+2. id="addTaskBtn"
+Kaam: Jab user Add Task pe click karta hai, tab ye button task list me item daalta hai.
+JavaScript:
+
+js
+Copy
+Edit
+const addBtn = document.getElementById("addTaskBtn");
+addBtn.addEventListener("click", () => {
+  // task add karne ka code
+});
+3. id="taskList"
+Kaam: Isme sab tasks <li> ke form me add hote hain
+JavaScript:
+
+js
+Copy
+Edit
+document.getElementById("taskList").appendChild(li);
+Jab new task banta hai, to wo isi list ke andar jata hai.
+
+🧠 Summary:
+
+id Ka Naam	Kya Karta Hai	Selector Use
+taskInput	User se input leta hai	getElementById("taskInput")
+addTaskBtn	Button to add task	getElementById("addTaskBtn")
+taskList	Task list jahan sab items jaate hain	getElementById("taskList")
+

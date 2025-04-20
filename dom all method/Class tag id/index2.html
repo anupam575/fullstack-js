@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🎓 Student List Manager</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: auto; }
+    input, button { padding: 8px; margin: 5px; }
+    li { margin: 5px; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+    .student { background-color: #f9f9f9; }
+    .class-10 { background-color: #e0f7fa; }
+    .class-12 { background-color: #ffe0b2; }
+    .delete-btn { float: right; color: red; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>🎓 Student List Manager</h2>
+
+  <!-- Input fields -->
+  <input type="text" id="student-name" placeholder="Enter student name">
+  <input type="text" id="student-class" placeholder="Enter class (e.g., class-10)">
+  <button onclick="addStudent()">Add Student</button>
+
+  <br><br>
+
+  <!-- Filter/search -->
+  <input type="text" id="search-box" placeholder="Search by name..." onkeyup="searchStudent()">
+  <button onclick="filterClass('class-10')">Filter Class 10</button>
+  <button onclick="filterClass('class-12')">Filter Class 12</button>
+  <button onclick="filterClass('all')">Show All</button>
+
+  <!-- Student list -->
+  <ul id="student-list"></ul>
+
+  <script>
+    // ✅ Add student to list
+    function addStudent() {
+      // 🎯 getElementById se values le rahe hain
+      const name = document.getElementById("student-name").value.trim();
+      const className = document.getElementById("student-class").value.trim();
+
+      if (!name || !className) {
+        alert("Name and Class are required");
+        return;
+      }
+
+      // 🎯 New list item banaye
+      const li = document.createElement("li");
+      li.className = `student ${className}`; // Example: student class-10
+      li.innerHTML = `
+        <span class="student-name">${name}</span> - <span>${className}</span>
+        <span class="delete-btn" onclick="this.parentElement.remove()">❌</span>
+      `;
+
+      // 🎯 Add to list using getElementById
+      document.getElementById("student-list").appendChild(li);
+
+      // Clear fields
+      document.getElementById("student-name").value = "";
+      document.getElementById("student-class").value = "";
+    }
+
+    // ✅ Search student by name using getElementsByTagName
+    function searchStudent() {
+      const search = document.getElementById("search-box").value.toLowerCase();
+      const items = document.getElementsByTagName("li"); // All list items
+
+      for (let i = 0; i < items.length; i++) {
+        const name = items[i].querySelector(".student-name").innerText.toLowerCase();
+        items[i].style.display = name.includes(search) ? "block" : "none";
+      }
+    }
+
+    // ✅ Filter by class using getElementsByClassName
+    function filterClass(classFilter) {
+      const allStudents = document.getElementsByClassName("student");
+
+      for (let i = 0; i < allStudents.length; i++) {
+        const item = allStudents[i];
+
+        if (classFilter === "all") {
+          item.style.display = "block";
+        } else if (item.classList.contains(classFilter)) {
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
+//
+
+
+💡 Project Idea: Student List Manager
+📋 Kya karega ye?
+👨‍🎓 Student ka naam aur class enter karo
+
+➕ Add student to list
+
+❌ Remove student
+
+🔍 Search by name (using getElementsByTagName)
+
+📊 Filter by class (using getElementsByClassName)
+
+🔧 DOM selectors ka use:
+
+getElementById → input & list select karne ke liye
+
+getElementsByClassName → class-wise filtering
+
+getElementsByTagName → search ke liye sab students loop
+
+Method	Code Line Example	Kya Karta Hai
+getElementById()	document.getElementById("student-name")	Single element access (input/list)
+getElementsByTagName()	document.getElementsByTagName("li")	Saare students loop for search
+getElementsByClassName()	document.getElementsByClassName("student")	Filter by class like class-10

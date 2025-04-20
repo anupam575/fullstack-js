@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advanced DOM Playground</title>
+  <style>
+    /* Har box ka size, color, alignment yaha define hai */
+    .box {
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      color: white;
+      font-weight: bold;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      position: relative;
+      flex-direction: column;
+    }
+
+    /* ❌ Delete button ka style */
+    .delete-btn {
+      position: absolute;
+      top: 2px;
+      right: 5px;
+      background-color: red;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    /* Box container styling */
+    #box-container {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* Box counter text style */
+    #counter {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Heading -->
+  <h2>Advanced DOM Playground 🎯</h2>
+
+  <!-- Buttons for different actions -->
+  <button onclick="addBox()">Add Box (appendChild)</button>
+  <button onclick="removeFirstBox()">Remove First (removeChild)</button>
+  <button onclick="replaceFirstBox()">Replace First (replaceChild)</button>
+  <button onclick="insertBoxBeforeSecond()">Insert Before 2nd (insertBefore)</button>
+  <button onclick="undo()">Undo Last Action</button>
+
+  <!-- Counter for total boxes -->
+  <div id="counter">Total Boxes: 0</div>
+
+  <!-- Box container where all boxes will appear -->
+  <div id="box-container"></div>
+
+  <script>
+    // Count variable for box numbering
+    let count = 1;
+
+    // Getting references of box container and counter div
+    const container = document.getElementById("box-container");
+    const counter = document.getElementById("counter");
+
+    // Last removed/replaced element ko yaad rakhne ke liye
+    let lastRemoved = null;
+
+    // Box count update karne ke liye
+    function updateCounter() {
+      counter.textContent = `Total Boxes: ${container.children.length}`;
+    }
+
+    // Har box ke liye ek random color select karne ka function
+    function getRandomColor() {
+      const colors = ["tomato", "teal", "slateblue", "purple", "seagreen", "orange", "crimson"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Ek naya box create karne ka function (with delete button)
+    function createBox(text) {
+      const box = document.createElement("div");
+      box.className = "box";
+      box.style.backgroundColor = getRandomColor(); // random color
+      box.textContent = text;
+
+      // ❌ Delete button banana
+      const delBtn = document.createElement("button");
+      delBtn.className = "delete-btn";
+      delBtn.innerText = "×";
+
+      // Jab delete button dabaye to box remove ho jaye
+      delBtn.onclick = () => {
+        lastRemoved = box.cloneNode(true); // backup for undo
+        container.removeChild(box); // remove this box
+        updateCounter(); // update box count
+      };
+
+      box.appendChild(delBtn); // button ko box ke andar daal do
+      return box; // box return karo
+    }
+
+    // 🔸 appendChild() => end mein naya box add karo
+    function addBox() {
+      const box = createBox(`Box ${count++}`); // ek naya box banao
+      container.appendChild(box); // box ko container mein daal do
+      updateCounter();
+    }
+
+    // 🔸 removeChild() => pehla box hatao
+    function removeFirstBox() {
+      if (container.firstChild) {
+        lastRemoved = container.firstChild.cloneNode(true); // undo ke liye save
+        container.removeChild(container.firstChild); // pehla box hatao
+        updateCounter();
+      }
+    }
+
+    // 🔸 replaceChild() => pehla box naya se replace karo
+    function replaceFirstBox() {
+      if (container.firstChild) {
+        const newBox = createBox(`Replaced ${count++}`); // naya box
+        lastRemoved = container.firstChild.cloneNode(true); // undo ke liye
+        container.replaceChild(newBox, container.firstChild); // replace karo
+        updateCounter();
+      }
+    }
+
+    // 🔸 insertBefore() => doosre box ke pehle ek naya box daalo
+    function insertBoxBeforeSecond() {
+      const newBox = createBox(`Insert ${count++}`);
+      if (container.children.length >= 2) {
+        container.insertBefore(newBox, container.children[1]); // 2nd ke pehle daalna
+      } else {
+        container.appendChild(newBox); // agar 2nd nahi hai to end mein daalo
+      }
+      updateCounter();
+    }
+
+    // 🔁 undo => last removed box wapas laao
+    function undo() {
+      if (lastRemoved) {
+        container.appendChild(lastRemoved); // last removed box wapas
+        updateCounter();
+        lastRemoved = null; // undo sirf ek baar chalega
+      } else {
+        alert("Nothing to undo!");
+      }
+    }
+  </script>
+
+</body>
+</html>

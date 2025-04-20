@@ -1,0 +1,135 @@
+ 1. setAttribute(name, value)
+🧠 Kya Karta Hai?
+Ye method kisi HTML element ke attribute ko set (update) karta hai. Tum attribute ka naam aur uski value specify karte ho.
+
+🔧 Syntax:
+javascript
+Copy
+Edit
+element.setAttribute("attributeName", "value");
+🔸 Example:
+javascript
+Copy
+Edit
+let div = document.createElement("div");
+div.setAttribute("id", "uniqueDiv"); // <div id="uniqueDiv"></div>
+document.body.appendChild(div);
+Yeh div element ko id attribute dene ka kaam kar raha hai.
+
+🔹 2. getAttribute(name)
+🧠 Kya Karta Hai?
+Ye method kisi element ka specified attribute ka value return karta hai.
+
+🔧 Syntax:
+javascript
+Copy
+Edit
+element.getAttribute("attributeName");
+🔸 Example:
+javascript
+Copy
+Edit
+let div = document.getElementById("uniqueDiv");
+let idValue = div.getAttribute("id");  // idValue = "uniqueDiv"
+console.log(idValue);
+Yeh div element ke id attribute ko fetch (read) kar raha hai.
+
+🔹 3. removeAttribute(name)
+🧠 Kya Karta Hai?
+Ye method kisi element se specified attribute ko remove (delete) kar deta hai.
+
+🔧 Syntax:
+javascript
+Copy
+Edit
+element.removeAttribute("attributeName");
+🔸 Example:
+javascript
+Copy
+Edit
+let div = document.getElementById("uniqueDiv");
+div.removeAttribute("id");  // Now, id attribute will be removed
+Yeh id attribute ko div se hata dega.
+
+🔹 4. classList.add(className)
+🧠 Kya Karta Hai?
+Ye method kisi element ke class list mein naya class add karta hai. Agar wo class pehle se hi exist karti ho, toh duplicate add nahi hoti.
+
+🔧 Syntax:
+javascript
+Copy
+Edit
+element.classList.add("className");
+🔸 Example:
+javascript
+Copy
+Edit
+let div = document.createElement("div");
+div.classList.add("highlight");  // <div class="highlight"></div>
+document.body.appendChild(div);
+Yeh div ko highlight class de raha hai.
+
+🔹 5. classList.remove(className)
+🧠 Kya Karta Hai?
+Ye method kisi element se specific class ko remove karta hai.
+
+🔧 Syntax:
+javascript
+Copy
+Edit
+element.classList.remove("className");
+🔸 Example:
+javascript
+Copy
+Edit
+let div = document.createElement("div");
+div.classList.add("highlight");
+div.classList.remove("highlight");  // <div></div> class remove ho gayi
+Yeh div se highlight class hata dega.
+
+🔹 6. classList.toggle(className)
+🧠 Kya Karta Hai?
+Ye method kisi element ke class ko toggle karta hai. Agar wo class already exist karti ho, toh wo remove ho jati hai, aur agar wo class nahi hoti, toh wo add ho jati hai.
+
+🔧 Syntax:
+javascript
+Copy
+Edit
+element.classList.toggle("className");
+🔸 Example:
+javascript
+Copy
+Edit
+let div = document.createElement("div");
+div.classList.toggle("highlight");  // Adds 'highlight' class if it's not there, removes if it's there
+Yeh div ko toggle (add/remove) kar raha hai highlight class ke saath.
+
+🔹 7. classList.contains(className)
+🧠 Kya Karta Hai?
+Ye method check karta hai ki element ke paas specific class hai ya nahi. Ye true ya false return karta hai.
+
+🔧 Syntax:
+javascript
+Copy
+Edit
+element.classList.contains("className");
+🔸 Example:
+javascript
+Copy
+Edit
+let div = document.createElement("div");
+div.classList.add("highlight");
+let hasClass = div.classList.contains("highlight");  // true
+console.log(hasClass);
+Yeh check kar raha hai ki div ke paas highlight class hai ya nahi.
+
+🔄 Summary of All Methods:
+
+Method	Kaam	Example
+setAttribute(name, value)	Element ke attribute ko set karta hai	<div id="uniqueDiv"></div>
+getAttribute(name)	Element ke attribute ki value fetch karta hai	"uniqueDiv" (for id attribute)
+removeAttribute(name)	Element se attribute ko remove karta hai	Removes id attribute
+classList.add(className)	Element ke class mein naya class add karta hai	class="highlight"
+classList.remove(className)	Element se specific class remove karta hai	Removes highlight class
+classList.toggle(className)	Class ko toggle (add/remove) karta hai	Adds or removes highlight class
+classList.contains(className)	Check karta hai ki class present hai ya nahi	Returns true if highlight class exists

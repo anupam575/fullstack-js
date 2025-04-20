@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attribute and ClassList Demo</title>
+</head>
+<body>
+
+  <div id="box" class="box">Hello, I am a box!</div>
+  <button onclick="toggleBoxClass()">Toggle Box Class</button>
+
+  <script>
+    // Example 1: setAttribute() and getAttribute()
+    let box = document.getElementById("box");
+    box.setAttribute("style", "width: 100px; height: 100px; background-color: blue;");
+
+    console.log(box.getAttribute("style"));  // Logs the inline style attribute
+
+    // Example 2: classList.add(), remove(), toggle(), contains()
+    function toggleBoxClass() {
+      if (box.classList.contains("box")) {
+        box.classList.remove("box");
+        box.classList.add("highlight");
+      } else {
+        box.classList.remove("highlight");
+        box.classList.add("box");
+      }
+    }
+  </script>
+
+</body>
+</html>

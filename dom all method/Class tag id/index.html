@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .student {
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid gray;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+    }
+
+    .highlighted {
+      background-color: yellow;
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="main-title">🎓 Student Dashboard</h2>
+
+  <input type="text" id="student-name" placeholder="Enter student name">
+  <input type="text" id="student-class" placeholder="Enter class (A/B/C)">
+  <button onclick="addStudent()">Add Student</button>
+  <button onclick="highlightClass()">Highlight Class B</button>
+  <button onclick="styleAllStudents()">Style All Students</button>
+
+  <ul id="student-list">
+    <!-- Students will appear here -->
+  </ul>
+
+  <script>
+    // 🔹 getElementById: Single elements ko select karna
+
+    function addStudent() {
+      // Name and class input le rahe hain
+      const nameInput = document.getElementById("student-name");
+      const classInput = document.getElementById("student-class");
+      const list = document.getElementById("student-list");
+
+      const name = nameInput.value.trim();
+      const className = classInput.value.trim().toUpperCase(); // A/B/C
+
+      if (name && className) {
+        // New <li> bana rahe hain
+        const li = document.createElement("li");
+        li.className = `student class-${className}`; // dynamic class
+        li.innerText = `${name} (Class ${className})`;
+        list.appendChild(li); // list me add kar diya
+
+        // Clear input boxes
+        nameInput.value = "";
+        classInput.value = "";
+      } else {
+        alert("Please enter both name and class");
+      }
+    }
+
+    // 🔹 getElementsByClassName: Class B ke students ko highlight karna
+
+    function highlightClass() {
+      const classBStudents = document.getElementsByClassName("class-B");
+
+      for (let i = 0; i < classBStudents.length; i++) {
+        classBStudents[i].classList.add("highlighted"); // highlight class add ki
+      }
+    }
+
+    // 🔹 getElementsByTagName: Sabhi <li> student items ka style change karna
+
+    function styleAllStudents() {
+      const allStudents = document.getElementsByTagName("li");
+
+      for (let i = 0; i < allStudents.length; i++) {
+        allStudents[i].style.fontStyle = "italic";
+        allStudents[i].style.backgroundColor = "#dfefff";
+      }
+    }
+  </script>
+
+</body>
+</html>

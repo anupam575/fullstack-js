@@ -1,0 +1,40 @@
+body {
+  font-family: sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+#app {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  margin: 5px 0;
+  background: #d1ffd1;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+.done {
+  text-decoration: line-through;
+  background-color: #ffcaca;
+}
+.remove-btn {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 3px 6px;
+  cursor: pointer;
+  border-radius: 3px;
+}

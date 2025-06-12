@@ -56,17 +56,6 @@ class Student extends Person {
     this.rollNumber = newRoll;
     console.log(`Roll number updated to ${this.rollNumber}`);
   }
-
-  // 🔹 Static method added
-  static compareStudents(studentA, studentB) {
-    if (studentA.rollNumber < studentB.rollNumber) {
-      return `${studentA.name} has a smaller roll number`;
-    } else if (studentA.rollNumber > studentB.rollNumber) {
-      return `${studentB.name} has a smaller roll number`;
-    } else {
-      return `Both students have the same roll number`;
-    }
-  }
 }
 
 // 🔸 Object Creation
@@ -76,5 +65,3 @@ const student2 = new Student("Anjali", 55, "Mathematics");
 // 🔸 Using methods
 student1.showDetails();
 student2.showDetails();
-
-console.log(Student.compareStudents(student1, student2)); // Static method call

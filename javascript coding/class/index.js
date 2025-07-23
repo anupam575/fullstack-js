@@ -61,7 +61,13 @@ class Student extends Person {
 // 🔸 Object Creation
 const student1 = new Student("Rahul", 101, "Computer Science");
 const student2 = new Student("Anjali", 55, "Mathematics");
+const student3 = new Student("Anjali", 59, "science");
+
 
 // 🔸 Using methods
 student1.showDetails();
 student2.showDetails();
+student3.showDetails();
+student1.greet();   // Hello, my name is Rahul
+student2.greet();   // Hello, my name is Anjali
+student1.updateRollNumber(999); // Now it will be used!

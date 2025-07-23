@@ -36,14 +36,20 @@ function App() {
       
       />
 
-      <ul>
+      {/* <ul>
         {filteredProducts.map((product) => (
           <li key={product.id}>
             {product.name} - {product.title} - ₹{product.price}
           </li>
         ))}
-      </ul>
-
+      </ul> */}
+<ul>
+  {filteredProducts.map((product) => (
+    <li key={product.id}>
+      {product.name}
+    </li>
+  ))}
+</ul>
       <div>
         Total Price: ₹{totalPrice}
       </div>
